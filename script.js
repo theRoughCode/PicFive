@@ -1,8 +1,8 @@
-(function(){
+(function (){
 	var content = document.getElementById('content');
 	var html = '';
 	var data = {
-		headerTitle: "Mr. goose"
+		title: "Welcome to PicFive!"
 	};
 
 	var template = Handlebars.compile(document.getElementById('header-template').innerHTML);

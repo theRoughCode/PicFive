@@ -8,7 +8,7 @@ addConcepts(id, concepts) adds a concept (keyword) to the model specified by id
 removeConcepts(id, concepts) removes a concept from the model.  If no concept specified, removes all concepts from model
  \\ String, [String] -> Void
 
-getModelConcepts(id) outputs the list of concepts from the model to console
+getModel(id) outputs the list of concepts from the model to console
  \\ String -> Void
 
 trainModel(id) trains model on given inputs
@@ -22,14 +22,23 @@ createModel(id, concepts) creates a new model with given id and concepts.
 
 base64 (file) converts the image from specified file path to base-64
  \\ String -> String
+
+ getKeywords() returns the 2D array keywords
+  \\ Void -> 2D Array
+
+  get_JSON(arr) parses a 2D array into a JSON object
+   \\ 2D array -> JSON
 */
 
+const src_dir = "src/";
+var keywords = [];
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
   'esMd-gkPe7eqMBzbotXS-wSZmqcyb_P_kKfM7pHs',
   'yr3RWEHPdr1KauuBfkY1HimboDvKPV5ELktJEXlg'
 );
+
 
 // list training models
 function getModels() {
@@ -77,11 +86,6 @@ function removeConcepts(id, concepts) {
   initModel(id, removeConceptsFromModel, concepts)
 }
 
-// Get concepts from a model
-function getModelConcepts(id) {
-  initModel(id, getConcepts);
-}
-
 // Train model with given dataset
 function trainModel(id) {
   initModel(id, train);
@@ -116,19 +120,20 @@ function removeConceptsFromModel(model) {
 
 
 // string -> {Promise(Model, error)}
-function getModel(model) {
-  app.models.get(model).then(
+function getModel(id) {
+  app.models.get(id).then(
     function(response){
-      console.log(response);
+      getConcepts(response);
     },
     errorHandler
   );
 }
 
-// (string | Model) -> {Promise(Model, error)}
+// Model -> {Promise(Model, error)}
 function getConcepts(model) {
   model.getOutputInfo().then(
     function (response) {
+      console.log(response);
       const data = response.outputInfo.data.concepts;
       const concepts = [];
       data.forEach(concept => concepts.push(concept.name));
@@ -149,22 +154,19 @@ function train(model) {
   );
 }
 
-  // after training the model, you can now use it to predict on other inputs
+// after training the model, you can now use it to predict on other inputs
 function predict(model, url) {
   model.predict(url).then(
     function(response) {
       const outputs = [];
       var concepts;
-      var keywords = [];
       for (var i in response.outputs){
         concepts = response.outputs[i].data.concepts;
         keywords = [];
         concepts.forEach(concept => keywords.push([concept.name, concept.value]));
       }
-      console.log(keywords);
-      return keywords; // returns array
     }, errorHandler
-  );
+  ).then(getKeywords, errorHandler);
 }
 
 // outputs errors
@@ -178,13 +180,50 @@ function base64(file) {
   return new Buffer(bitmap).toString('base64');
 }
 
+// returns picture's keywords
+function getKeywords() {
+  return keywords;
+}
 
+function generateWords(){
+  // https://github.com/first20hours/google-10000-english
+  const filepath = src_dir + "wordbank.txt";
+  var words = fs.readFileSync(filepath).toString('utf8').split("\n");
+  words = words.filter(word => word.length > 2 && word.slice(-1) != 's');  // remove single and double letters
+  var buzzwords = [];
+  while(buzzwords.length < 5) {
+    // Implement better randomizer
+    var num = Math.floor(Math.random() * words.length);
+    var buzz = words[num];
+    var dup = buzzwords.reduce((x, y) => ((y === buzz) || x), false);
+    if (!dup) buzzwords.push(buzz);
+  }
+  return buzzwords;
+}
+
+function is_NSFW(url){
+  const confidence = predictModel(Clarifai.NSFW_MODEL, url);
+}
+
+// parses 2D array into JSON
+function get_JSON(arr){
+  var json = {};
+  arr.forEach(x => {
+    json[x[0]] = x[1];
+  });
+  return json;
+}
+
+// Functions exported
 module.exports = {
   addConcepts,
   removeConcepts,
-  getModelConcepts,
+  getModel,
   trainModel,
   predictModel,
   createModel,
-  base64
+  base64,
+  getKeywords,
+  generateWords,
+  get_JSON
 }

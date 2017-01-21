@@ -1,9 +1,52 @@
 * {
     background-color:#ADD8E6;
     position: relative;
+    text-align: center;
 }
 
 #title {
-    font-size: 100px;
+    font-size: 80px;
+    font-style: italic;
     text-align: center;
+}
+
+.button { 
+    font-family: "Comic Sans MS", sans-serif;
+    padding: 6px 16px;
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 6px #999;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.button:active {
+  background-color: #ff0066;
+  box-shadow: 0 4px #666;
+  transform: translateY(2px);
+}
+
+.button:hover {
+    background-color: #3e8e41
+} 
+
+.col {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 100px;
+    padding-bottom: 10px;
+}
+
+#navBar {
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
 }

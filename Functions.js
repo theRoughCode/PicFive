@@ -1,4 +1,5 @@
 var Clarifai = require('clarifai');
+var fs = require('fs');
 
 
 // instantiate new Clarifai app
@@ -159,6 +160,12 @@ function errorHandler(err) {
   console.error(err);
 }
 
+// convert image to base 64
+function base64(file) {
+  var bitmap = fs.readFileSync(file);
+  return new Buffer(bitmap).toString('base64');
+}
+
 
 module.exports = {
   addConcepts,
@@ -166,5 +173,6 @@ module.exports = {
   getModelConcepts,
   trainModel,
   predictModel,
-  createModel
+  createModel,
+  base64
 }

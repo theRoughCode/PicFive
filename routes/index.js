@@ -4,7 +4,7 @@ var router = express.Router();
 //GET homepage
 router.get('/', function(req, res) {
   res.render('index', {
-      temp: 'HelloWorld'
+      title: 'ServerUp'
   });
   console.log('GET - homepage')
 });

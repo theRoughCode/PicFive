@@ -5,14 +5,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script id="header-template" type="text/x-handlebars-template">
-      <div class="container">
-        <h1 id="title"> {{temp}} </h1>
-      </div>
+
     </script>
 </head>
+
 <body>
+    <header>
+        <div class="container">
+          <h1 id="title"> {{title}} </h1>
+        </div>
+    </header>
+
   <section id="content"></section>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
-  <script src="script.js"></script>
 </body>
 </html>

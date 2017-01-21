@@ -17,6 +17,8 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//database connection
+//mongoose.connect(process.env.MLAB_URI);
 
 // if a request is made, logs event
 app.use(function (req, res, next) {

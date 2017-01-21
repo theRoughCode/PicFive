@@ -1,23 +1,34 @@
 var Clarifai = require('clarifai');
 var fs = require('fs');
 
+/*   FUNCTIONS EXPORTED
+addConcepts(id, concepts) adds a concept (keyword) to the model specified by id
+ \\ String, [String] -> Void
+
+removeConcepts(id, concepts) removes a concept from the model.  If no concept specified, removes all concepts from model
+ \\ String, [String] -> Void
+
+getModelConcepts(id) outputs the list of concepts from the model to console
+ \\ String -> Void
+
+trainModel(id) trains model on given inputs
+ \\ String -> Void
+
+predictModel(id, url) produces a 2D array of [{keyword, confidence}] given an image url or image in base64
+ \\ String, String -> Void
+
+createModel(id, concepts) creates a new model with given id and concepts.
+ \\ String, [String] -> Void
+
+base64 (file) converts the image from specified file path to base-64
+ \\ String -> String
+*/
+
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
   'esMd-gkPe7eqMBzbotXS-wSZmqcyb_P_kKfM7pHs',
   'yr3RWEHPdr1KauuBfkY1HimboDvKPV5ELktJEXlg'
-);
-
-// predict contents of image
-app.models.predict(Clarifai.GENERAL_MODEL, 'https://samples.clarifai.com/metro-north.jpg').then(
-  function (response) {
-    //console.log("Predict:");
-    const concepts = response.outputs[0].data.concepts;
-    //concepts.forEach(concept => console.log(concept.name));
-  },
-  function (err) {
-    console.error(err);
-  }
 );
 
 // list training models
@@ -149,8 +160,9 @@ function predict(model, url) {
         concepts = response.outputs[i].data.concepts;
         keywords = [];
         concepts.forEach(concept => keywords.push([concept.name, concept.value]));
-        console.log(keywords);
       }
+      console.log(keywords);
+      return keywords; // returns array
     }, errorHandler
   );
 }

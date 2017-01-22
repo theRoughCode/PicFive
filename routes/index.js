@@ -69,6 +69,7 @@ router.post('/img', function(req, res) {
 });
 
 router.get('/views/leaderboards', function(req, res) {
+  console.log(board);
     res.render('leaderboards', {
         mainscore : points,
         user: board

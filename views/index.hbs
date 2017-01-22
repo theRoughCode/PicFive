@@ -157,7 +157,7 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-xs-12 bg-success">
+            <div class="col-xs-12">
 
 
                 <h1 id="title"><strong>PicFive!</strong></h1>
@@ -173,7 +173,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12 bg-success">
+            <div class="col-xs-12">
                 <h1 id="up"><strong>Words of the day</strong></h1>
                 <ul class="listFont">
                   {{#each words}}
@@ -185,16 +185,22 @@
 
         <div class="row">
 
-            <div class="col-xs-2 bg-danger">
+            <div class="col-xs-2">
 
-               <!-- <div class="upload"><input type="file" accept='image/*' capture='camera' onchange="this.form.submit();" ></div> -->
 
-                <form class="upload" action='/img' method='POST' enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="usr">Name:</label>
+                    <input type="text" class="form-control" id="usr">
+                </div>
+                
+                <form class="upload" action='/img' method='POST' enctype="multipart/form-data">                      
                     <input type="file" name="imgUp" accept="image/*" onchange="this.form.submit();" >
                 </form>
+                
+
 
             </div>
-            <div class="col-xs-10 bg-danger">
+            <div class="col-xs-10">
                 <h1 class="big"> Upload your pictures here!</h1>
 
             </div>

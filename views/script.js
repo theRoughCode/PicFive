@@ -34,7 +34,18 @@ $(function () {
   var theCompiledHtml = theTemplate(context);
 
   // Add the compiled html to the page
-  $('.leaderboardData').html(theCompiledHtml);
+    $('.leaderboardData').html(theCompiledHtml);
+    $('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 2500,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
 });
 
 (function (){
@@ -52,3 +63,7 @@ $(function () {
 function test(msg) {
     alert(msg);
 }
+
+
+
+

@@ -1,8 +1,10 @@
 * {
     position: relative;
-    text-align: center;
 }
 
+.index_1 {
+    text-align: center;
+}
 body {
    /* background-image: url("../images/background.jpg"); */
     background-color:white;

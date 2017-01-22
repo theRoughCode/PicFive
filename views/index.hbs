@@ -35,10 +35,7 @@
         font-style: normal;
         text-align: center;
     }
-
-    .upload{
-      background-color: blue;
-    }
+        
 
     .button,
     .upload {
@@ -53,6 +50,7 @@
         box-shadow: 0 6px #999;
         margin-top: 5px;
         margin-bottom: 10px;
+        background-color: #3e8e41;
     }
 
     .upload:hover {
@@ -79,8 +77,8 @@
     .upload{
         border-radius: 132px;
         width: 132px;
-        background: transparent url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-128.png") center center no-repeat;
-
+        background: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-camera-128.png") center center no-repeat;
+        background-color: white;
     }
 
     .upload input {
@@ -181,7 +179,8 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4 bg-success">
                 <h1 id="up"><strong>Words of the day</strong></h1>
                 <ul class="listFont">
                   {{#each words}}
@@ -189,15 +188,19 @@
                   {{/each}}
                 </ul>
             </div>
+            <div class="col-xs-4"></div>
         </div>
 
         <div class="row">
+            <div class="col-xs-12">
+                <h1 id="msgbox" class="big"> Upload your picture here!</h1>
 
+            </div>
             <div class="col-xs-2">
 
 
                 <div class="form-group">
-                    <label for="usr">Name:</label>
+                    <label for="usr"><font color="white">Name:</font></label>
                     <input type="text" class="form-control" name="user" action='/img'>
                 </div>
 
@@ -206,15 +209,10 @@
                 </form>
 
             </div>
-            <div class="col-xs-10">
-                <h1 id="msgbox" class="big"> Upload your picture here!</h1>
 
-            </div>
         </div>
 
     </div>
-
-
 
   <section id="content"></section>
 </body>

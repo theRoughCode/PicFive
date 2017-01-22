@@ -59,8 +59,8 @@ router.post('/img', function(req, res) {
             if (err) return console.error(err);
             for(var i = 0; i < scores.length; i++) {
                 // edit res to send leaderboard to client
-                winner[1][i] = scores[i].name;
-                winner[2][i] = scores[i].val;
+                board[1][i] = scores[i].name;
+                board[2][i] = scores[i].val;
                 console.log(scores[i].name);
                 console.log(scores[i].val);
             }
@@ -72,26 +72,26 @@ router.post('/img', function(req, res) {
 router.get('/views/leaderboards', function(req, res) {
     res.render('leaderboards', {
         mainscore : points,
-        winner1 : winner[1][0],
-        winner2 : winner[1][1],
-        winner3 : winner[1][2],
-        winner4 : winner[1][3],
-        winner5 : winner[1][4],
-        winner6 : winner[1][5],
-        winner7 : winner[1][6],
-        winner8 : winner[1][7],
-        winner9 : winner[1][8],
-        winner10 : winner[1][9],
-        score1 : winner[2][0],
-        score2 : winner[2][1],
-        score3 : winner[2][2],
-        score4 : winner[2][3],
-        score5 : winner[2][4],
-        score6 : winner[2][5],
-        score7 : winner[2][6],
-        score8 : winner[2][7],
-        score9 : winner[2][8],
-        score10 : winner[2][9]
+        winner1 : board[1][0],
+        winner2 : board[1][1],
+        winner3 : board[1][2],
+        winner4 : board[1][3],
+        winner5 : board[1][4],
+        winner6 : board[1][5],
+        winner7 : board[1][6],
+        winner8 : board[1][7],
+        winner9 : board[1][8],
+        winner10 : board[1][9],
+        score1 : board[2][0],
+        score2 : board[2][1],
+        score3 : board[2][2],
+        score4 : board[2][3],
+        score5 : board[2][4],
+        score6 : board[2][5],
+        score7 : board[2][6],
+        score8 : board[2][7],
+        score9 : board[2][8],
+        score10 : board[2][9]
     })
 });
 

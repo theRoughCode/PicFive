@@ -153,7 +153,7 @@
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
-    <script>
+    <!--<script>
     $(function () {
       // Grab the template script
       var theTemplateScript = $("#address-template").html();
@@ -203,7 +203,7 @@
         });
     });
     });
-    </script>
+  </script> -->
 </head>
 
 <body>
@@ -234,56 +234,13 @@
     </tr>
   </thead>
   <tbody>
+    {{#each user}}
     <tr>
-      <th scope="row">1</th>
-      <td>{{winner1}}</td>
-      <td>{{score1}}</td>
+      <th scope="row">{{this.[0]}}</th>
+      <td>{{this.[2]}}</td>
+      <td>{{this.[3]}}</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>{{winner2}}</td>
-      <td>{{score2}}</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>{{winner3}}</td>
-      <td>{{score3}}</td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>{{winner4}}</td>
-      <td>{{score4}}</td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td>{{winner5}}</td>
-      <td>{{score5}}</td>
-    </tr>
-    <tr>
-      <th scope="row">6</th>
-      <td>{{winner6}}</td>
-      <td>{{score6}}</td>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td>{{winner7}}</td>
-      <td>{{score7}}</td>
-    </tr>
-    <tr>
-      <th scope="row">8</th>
-      <td>{{winner8}}</td>
-      <td>{{score8}}</td>
-    </tr>
-    <tr>
-      <th scope="row">9</th>
-      <td>{{winner9}}</td>
-      <td>{{score9}}</td>
-    </tr>
-    <tr>
-      <th scope="row">10</th>
-      <td>{{winner10}}</td>
-      <td>{{score10}}</td>
-    </tr>
+    {{/each}}
   </tbody>
 </table>
     </script>

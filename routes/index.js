@@ -28,6 +28,7 @@ router.get('/', function(req, res) {
 router.get('/leaderboards', function(req, res) {
   res.render('leaderboards', {
     mainscore : 500
+    user: board
   });
 });
 

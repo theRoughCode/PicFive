@@ -10,6 +10,7 @@ var router    = express.Router();
 var functions = require('../Functions');
 var models    = require('../Models');
 var Promise   = require('bluebird');
+var cool      = require('cool-ascii-faces');
 
 var text = 'ServerUp'
 var img;
@@ -73,5 +74,9 @@ router.get('/api/get_score', function(req, res){
     }, err => console.error(err));
   }
 });
+
+router.get('/cool', function(request, require) {
+  response.send(cool());
+})
 
 module.exports = router;

@@ -75,7 +75,7 @@ router.get('/api/get_score', function(req, res){
   }
 });
 
-router.get('/cool', function(request, require) {
+router.get('/cool', function(request, response) {
   response.send(cool());
 })
 

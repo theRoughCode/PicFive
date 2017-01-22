@@ -1,6 +1,7 @@
 var Clarifai = require('clarifai');
 var models   = require('./Models');
 var fs       = require('fs');
+var Promise  = require('bluebird');
 
 /*   FUNCTIONS EXPORTED
 addConcepts(id, concepts) adds a concept (keyword) to the model specified by id
@@ -210,29 +211,39 @@ function get_JSON(arr){
   return json;
 }
 
-//
+var promiseWhile = function(condition, action) {
+  var resolver = Promise.defer();
+
+  var loop = function() {
+    if (!condition()) return resolver.resolve();
+    return Promise.cast(action()).then(loop).catch(resolver.reject);
+  };
+
+  process.nextTick(loop);
+  return resolver.promise;
+}
+
 function getScore(url, buzzwords) {
   var c_models = Object.keys(models);
   var count = 1;
   var score = 0;
-  var promises = c_models.map(m => asyncPredict(m, url, buzzwords));
-  var temp = Promise.all(promises).then(
-    score => console.log(score),
-    errorHandler
-  );
-}
 
-function asyncPredict(model, url, buzzwords) {
-  console.log(predictModel(eval(`models.${model}`), url));
-  return new Promise (function(resolve, reject) {
-    predictModel(eval(`models.${model}`), url).then(results => {
-      results = get_JSON(results);
-      score += scoreMatches(results, buzzwords);
-      resolve(score);
-    }, function(err) {
-      reject(err);
+  return promiseWhile(() => {
+    return count < c_models.length;
+  }, function() {
+    return new Promise (function(resolve, reject) {
+      predictModel(eval(`models.${c_models[count-1]}`), url).then(results => {
+        results = get_JSON(results);
+        score += scoreMatches(results, buzzwords);
+        count++;
+        resolve(score);
+      }, errorHandler), function(err) {
+        reject(err);
+      }
     });
-  })
+  }).then(() => {
+    return score;
+  });
 }
 
 function scoreMatches(results, buzzwords) {
@@ -246,7 +257,7 @@ function scoreMatches(results, buzzwords) {
 
 //predictModel(`models.${temp}`, "http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg").then(x=> console.log(x));
 
-getScore("http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg", ['parliament', 'military', 'president', 'people', 'administration']);
+var score = getScore("http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg", ['parliament', 'military', 'president', 'people', 'administration']);
 
 // Functions exported
 module.exports = {

@@ -1,6 +1,8 @@
 var express   = require('express');
 var router    = express.Router();
 var functions = require('../Functions');
+var models    = require('../Models');
+var Promise   = require('bluebird');
 
 var text = 'ServerUp'
 var img;
@@ -12,7 +14,6 @@ router.get('/', function(req, res) {
     });
     console.log('GET - homepage')
 });
-
 
 //receive image
 router.post('/img', function(req, res) {

@@ -1,58 +1,55 @@
 var express = require('express');
 var router = express.Router();
 var score = require('../app/models/score');
-//the query we will make on the database (max 50 players, sort largest > smallest)
-var query = score.find().sort({val: -1}).limit(50);
-
-var text = 'ServerUp'
-var express   = require('express');
-var router    = express.Router();
 var functions = require('../Functions');
 var models    = require('../Models');
 var Promise   = require('bluebird');
 var cool      = require('cool-ascii-faces');
 
-var text = 'ServerUp'
-var img;
-var buzzwords;
+var buzzwords = ['car', 'banana', 'water', 'ice', 'tree'];
+//the query we will make on the database (max 50 players, sort largest > smallest)
+var query = score.find().sort({val: -1}).limit(50);
 //GET homepage
 router.get('/', function(req, res) {
-    res.render('index', {
-        title: text
-    });
+    res.render('index');
     console.log('GET - homepage');
 });
 
 //receive image
 router.post('/img', function(req, res) {
-    var img = req.body.img;
-    console.log('POST - image : ', img);
+    var img = functions.base64(req.files.imgUp.data);
 
     //do function calls to get the player's score
-
-    //adding to the database
+    var points;
+    var scorePromise = functions.getScore(img, buzzwords);
     var player = new score({
-        name : req.body.name, //name here
-        val : req.body.val //score here
+        name : 'username',
+        val : points
     });
-    player.save(function (err, data) {
-        if (err) console.log(err);
-        console.log('Saved: ', data);
-    }).then(function(err, list) {
+    scorePromise.then(result => {
+      points = result;
+      console.log(points);
+    }, err => console.error(err))
+    .then(function(err, list) {
         if (err) return console.error(err);
-        query.exec(function(err, scores) {
+        player.val = points;
+        player.save(function (err, data) {
+            if (err) console.log(err);
+            console.log('Saved: ', data);
+        }).then(function(err, list) {
             if (err) return console.error(err);
-            scores.forEach(function(scoreA) {
-                // edit res to send leaderboard to client
-                console.log(scoreA.name);
-                console.log(scoreA.val);
+            query.exec(function(err, scores) {
+                if (err) return console.error(err);
+                scores.forEach(function(scoreA) {
+                    // edit res to send leaderboard to client
+                    console.log(scoreA.name);
+                    console.log(scoreA.val);
+                })
             })
         })
     });
     //res.render leaderboard page
-    res.render('index', {
-        title : text
-    });
+    res.render('index');
 
 });
 

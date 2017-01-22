@@ -78,6 +78,7 @@ router.get('/views/leaderboards', function(req, res) {
 // GET 5 BUZZWORDS OF THE DAY
 router.get('/api/wordbank', function(req, res) {
   buzzwords = functions.generateWords();
+  res.redirect('/');
   console.log(buzzwords);
 });
 

@@ -153,6 +153,21 @@
 
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+    <script>
+    $(function () {
+        $('.count').each(function () {
+        $(this).prop('Counter',0).animate({
+            Counter: $(this).text()
+        }, {
+            duration: 2500,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+      });
+    });
+    </script>
     <!--<script>
     $(function () {
       // Grab the template script
@@ -207,7 +222,6 @@
 </head>
 
 <body>
-    <script id="address-template" type="text/x-handlebars-template">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-1">
@@ -237,13 +251,12 @@
     {{#each user}}
     <tr>
       <th scope="row">{{this.[0]}}</th>
+      <td>{{this.[1]}}</td>
       <td>{{this.[2]}}</td>
-      <td>{{this.[3]}}</td>
     </tr>
     {{/each}}
   </tbody>
 </table>
-    </script>
     <div class="leaderboardData"></div>
 </body>
 

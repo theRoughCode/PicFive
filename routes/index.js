@@ -10,9 +10,16 @@ var buzzwords = ['car', 'banana', 'water', 'ice', 'tree'];
 //the query we will make on the database (max 50 players, sort largest > smallest)
 var query = score.find().sort({val: -1}).limit(10);
 var board = [
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    ['user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user'],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [1,'user',0],
+  [2,'user',0],
+  [3,'user',0],
+  [4,'user',0],
+  [5,'user',0],
+  [6,'user',0],
+  [7,'user',0],
+  [8,'user',0],
+  [9,'user',0],
+  [10,'user',0],
 ];
 var points = 0;
 //GET homepage
@@ -27,7 +34,7 @@ router.get('/', function(req, res) {
 
 router.get('/leaderboards', function(req, res) {
   res.render('leaderboards', {
-    mainscore : 500
+    mainscore : 500,
     user: board
   });
 });

@@ -1,0 +1,101 @@
+<html>
+
+<head>
+    <title>PicFive</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+    <script src="script.js"></script>
+
+</head>
+
+<body>
+    <script id="address-template" type="text/x-handlebars-template">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-1">
+                </div>
+                <div class="col-xs-10">
+                    <h1 id="title">PicFive</h1>
+                </div>
+                <div class="col-xs-1 bg-info">
+                    <img src="../images/profile.png" alt="title">
+                </div>
+            </div>
+        </div>
+        <div class="center-text">
+            <h1> Your score:</h1> 
+            <div class="count"> {{mainscore}} </div>
+            <p> Did you make it on the leaderboards? Here are the best scores: </p>
+        </div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>{{winner1}}</td>
+      <td>{{score1}}</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>{{winner2}}</td>
+      <td>{{score2}}</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>{{winner3}}</td>
+      <td>{{score3}}</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>{{winner4}}</td>
+      <td>{{score4}}</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>{{winner5}}</td>
+      <td>{{score5}}</td>
+    </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td>{{winner6}}</td>
+      <td>{{score6}}</td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>{{winner7}}</td>
+      <td>{{score7}}</td>
+    </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>{{winner8}}</td>
+      <td>{{score8}}</td>
+    </tr>
+    <tr>
+      <th scope="row">9</th>
+      <td>{{winner9}}</td>
+      <td>{{score9}}</td>
+    </tr>
+    <tr>
+      <th scope="row">10</th>
+      <td>{{winner10}}</td>
+      <td>{{score10}}</td>
+    </tr>
+  </tbody>
+</table>
+    </script>
+    <div class="leaderboardData"></div>
+</body>
+
+</html>

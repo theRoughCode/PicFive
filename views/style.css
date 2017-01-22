@@ -1,6 +1,5 @@
 * {
     position: relative;
-    text-align: center;
 }
 
 body {
@@ -130,4 +129,11 @@ img,
 
 #up{
     font-size: 42px;
+}
+
+.center-text {
+    text-align: center;
+}
+.count {
+    font-size: 100px;
 }

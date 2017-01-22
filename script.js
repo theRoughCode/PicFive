@@ -26,7 +26,7 @@ $("#imgInp").change(function(){
     readURL(this);
 });
 
-function test() {
-    alert("YO");
+function test(msg) {
+    alert(msg);
 }
 

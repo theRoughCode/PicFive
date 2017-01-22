@@ -19,7 +19,11 @@
                 <!--(empty)-->
             </div>
             <div class="col-xs-10 bg-danger">
+<<<<<<< HEAD
                 <h1 id="title">PicFive</h1>
+=======
+                <h1 id="title"><strong>PicFive!</strong></h1>
+>>>>>>> 8982feb0573499cbda29151dbac7200c03b333ff
             </div>
             <div class="col-xs-1 bg-info">
             <img src="../images/profile.png" alt="title">
@@ -29,45 +33,20 @@
         
         <div class="row" id="navBar">
             <div class="col-lg-4 col-xs-4 bg-warning">
-                <button class="button">Home</button>
+                <button class="button" onclick="test('Welcome Home!')";>Home</button>
             </div>
             <div class="col-lg-4 col-xs-4 bg-warning">
-                <button class="button">About</button>
+                <button class="button" onclick="test('About what?')";>About</button>
             </div>
             <div class="col-lg-4 col-xs-4 bg-warning">
-                <button class="button">Log in</button>
+                <button class="button" onclick="test('Stil work in progress!')";>Log in</button>
             </div>
         </div>
         
         <div class="row">
             <div class="col-xs-12 bg-success">
-                <h1 id="up">Words of the day</h1>
-                <ul>
-                    <li>one</li>
-                    <li>two</li>
-                    <li>three</li>
-                    <li>four</li>
-                    <li>five</li>
-                </ul>
-            </div>
-            
-            <div class="col-xs-12 bg-danger">              
-                
-                
-                <button id="upload" type="submit" style="border: 0; background: transparent">
-                    <img src="../images/cam.png" width="132" height="132" alt="submit" onclick="previewFile();"/>
-                </button>
-                           
-                
-              <!--  <form action='/img' method='POST'>
-                    <input type='file' accept='image/*' capture='camera' name='img'>
-                    <input type='submit' value='Send'>
-                </form>-->
-            </div>
-            
-            <div class="col-xs-12 bg-success">
-                <h1 id="up">Leaderboards</h1> 
-                <ul>
+                <h1 id="up"><strong>Words of the day</strong></h1>
+                <ul class="listFont">
                     <li>one</li>
                     <li>two</li>
                     <li>three</li>
@@ -78,42 +57,21 @@
         </div>
         
         <div class="row">
-            <div class="col-xs-4 bg-warning">
-                
-            </div>
-      
-        </div>
-            
-            
-            
-            <div class="col-lg-1 col-xs-4 bg-danger">
-                7
-            </div>
-            <div class="col-lg-1 col-xs-4 bg-success">
-                8
-            </div>
-            <div class="col-lg-1 col-xs-4 bg-warning">
-                9
-            </div>
-            <div class="col-lg-1 col-xs-4 bg-info">
-                10
-            </div>
-            <div class="col-lg-1 col-xs-4 bg-danger">
-                11
-            </div>
-            <div class="col-lg-1 col-xs-4 bg-success">
-                12
-            </div>
-            
-        </div>  
-    
-   <!-- <header>
-        
-        <div class="container">
-          <h1 id="title"> {{title}} </h1>
-        </div>
-    </header> -->
 
+            <div class="col-xs-12 bg-danger"> 
+                
+                <div class="upload"><input type="file" accept='image/*' capture='camera' onchange="this.form.submit();" ></div>
+  
+                <form class="upload" action='/img' method='POST'>
+                    <input type="file" name="select" accept="image/*" onchange="this.form.submit();" >
+                </form>
+            
+            </div>
+
+        </div>   
+            
+    </div>  
+    
 
 
   <section id="content"></section>

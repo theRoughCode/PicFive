@@ -11,11 +11,11 @@ var MongooseError = require('../error.js');
  * @inherits MongooseError
  */
 
-function OverwriteModelError (name) {
+function OverwriteModelError(name) {
   MongooseError.call(this, 'Cannot overwrite `' + name + '` model once compiled.');
   Error.captureStackTrace && Error.captureStackTrace(this, arguments.callee);
   this.name = 'OverwriteModelError';
-};
+}
 
 /*!
  * Inherits from MongooseError.

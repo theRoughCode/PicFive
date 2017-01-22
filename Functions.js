@@ -1,5 +1,7 @@
 var Clarifai = require('clarifai');
-var fs = require('fs');
+var models   = require('./Models');
+var fs       = require('fs');
+var Promise  = require('bluebird');
 
 /*   FUNCTIONS EXPORTED
 addConcepts(id, concepts) adds a concept (keyword) to the model specified by id
@@ -23,11 +25,15 @@ createModel(id, concepts) creates a new model with given id and concepts.
 base64 (file) converts the image from specified file path to base-64
  \\ String -> String
 
-  get_JSON(arr) parses a 2D array into a JSON object
-   \\ 2D array -> JSON
+get_JSON(arr) parses a 2D array into a JSON object
+\\ 2D array -> JSON
+
+getScore(url, buzzwords) produces the score based on the image provided
+ \\ String [String] -> Promise
 */
 
 const src_dir = "src/";
+const score_multiplier = 20;
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
@@ -150,8 +156,6 @@ function train(model) {
   );
 }
 
-var k;
-
 // after training the model, you can now use it to predict on other inputs
 function predict(model, url) {
   return model.predict(url).then(
@@ -190,22 +194,80 @@ function generateWords(){
     var num = Math.floor(Math.random() * words.length);
     var buzz = words[num];
     var dup = buzzwords.reduce((x, y) => ((y === buzz) || x), false);
-    if (!dup) buzzwords.push(buzz);
+    if (!dup) buzzwords.push(buzz.toUpperCase());
   }
   return buzzwords;
 }
 
 function is_NSFW(url){
-  const confidence = predictModel(Clarifai.NSFW_MODEL, url);
+  return predictModel(Clarifai.NSFW_MODEL, url).then(results => {
+    results = get_JSON(results);
+    const confidence = results.NSFW;
+    const tolerance = 0.95;
+    return (confidence > tolerance);
+  });
 }
 
 // parses 2D array into JSON
 function get_JSON(arr){
   var json = {};
   arr.forEach(x => {
-    json[x[0]] = x[1];
+    json[x[0].toUpperCase()] = x[1];
   });
   return json;
+}
+
+var promiseWhile = function(condition, action) {
+  var resolver = Promise.defer();
+
+  var loop = function() {
+    if (!condition()) return resolver.resolve();
+    return Promise.cast(action()).then(loop).catch(resolver.reject);
+  };
+
+  process.nextTick(loop);
+  return resolver.promise;
+}
+
+function getScore(url, buzzwords) {
+  const penalty = -10;
+
+  return is_NSFW(url)
+    .then(nsfw => {
+      if (nsfw) return penalty;
+      else {
+        var c_models = Object.keys(models);
+        var count = 1;
+        var score = 0;
+
+        return promiseWhile(() => {
+          return count < c_models.length;
+        }, function() {
+          return new Promise (function(resolve, reject) {
+            predictModel(eval(`models.${c_models[count-1]}`), url).then(results => {
+              results = get_JSON(results);
+              score += scoreMatches(results, buzzwords);
+              count++;
+              resolve(score);
+            }, errorHandler), function(err) {
+              reject(err);
+            }
+          });
+        }).then(() => {
+          score = Math.floor(score);
+          return score;
+        });
+      }
+    })
+  }
+
+function scoreMatches(results, buzzwords) {
+  var score = 0;
+  buzzwords.forEach(b => {
+    var confidence = eval(`results.${b.toUpperCase()}`);
+    if(typeof confidence === 'number') score += (confidence * score_multiplier);
+  });
+  return score;
 }
 
 // Functions exported
@@ -218,5 +280,6 @@ module.exports = {
   createModel,
   base64,
   generateWords,
-  get_JSON
+  get_JSON,
+  getScore
 }

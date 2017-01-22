@@ -9,8 +9,11 @@ var cool      = require('cool-ascii-faces');
 var buzzwords = ['car', 'banana', 'water', 'ice', 'tree'];
 //the query we will make on the database (max 50 players, sort largest > smallest)
 var query = score.find().sort({val: -1}).limit(10);
-var winner = ['user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user'];
-var winner_score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var board = [
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    ['user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user'],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+];
 var points = 0;
 //GET homepage
 router.get('/', function(req, res) {
@@ -51,8 +54,8 @@ router.post('/img', function(req, res) {
             if (err) return console.error(err);
             for(var i = 0; i < scores.length; i++) {
                 // edit res to send leaderboard to client
-                winner[i] = scores[i].name;
-                winner_score[i] = scores[i].val;
+                winner[1][i] = scores[i].name;
+                winner[2][i] = scores[i].val;
                 console.log(scores[i].name);
                 console.log(scores[i].val);
             }
@@ -64,26 +67,26 @@ router.post('/img', function(req, res) {
 router.get('/views/leaderboards', function(req, res) {
     res.render('leaderboards', {
         mainscore : points,
-        winner1 : winner[0],
-        winner2 : winner[1],
-        winner3 : winner[2],
-        winner4 : winner[3],
-        winner5 : winner[4],
-        winner6 : winner[5],
-        winner7 : winner[6],
-        winner8 : winner[7],
-        winner9 : winner[8],
-        winner10 : winner[9],
-        score1 : winner_score[0],
-        score2 : winner_score[1],
-        score3 : winner_score[2],
-        score4 : winner_score[3],
-        score5 : winner_score[4],
-        score6 : winner_score[5],
-        score7 : winner_score[6],
-        score8 : winner_score[7],
-        score9 : winner_score[8],
-        score10 : winner_score[9]
+        winner1 : winner[1][0],
+        winner2 : winner[1][1],
+        winner3 : winner[1][2],
+        winner4 : winner[1][3],
+        winner5 : winner[1][4],
+        winner6 : winner[1][5],
+        winner7 : winner[1][6],
+        winner8 : winner[1][7],
+        winner9 : winner[1][8],
+        winner10 : winner[1][9],
+        score1 : winner[2][0],
+        score2 : winner[2][1],
+        score3 : winner[2][2],
+        score4 : winner[2][3],
+        score5 : winner[2][4],
+        score6 : winner[2][5],
+        score7 : winner[2][6],
+        score8 : winner[2][7],
+        score9 : winner[2][8],
+        score10 : winner[2][9]
     })
 });
 

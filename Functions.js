@@ -37,8 +37,8 @@ const score_multiplier = 20; // multiples by confidence score
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
-  'esMd-gkPe7eqMBzbotXS-wSZmqcyb_P_kKfM7pHs',
-  'yr3RWEHPdr1KauuBfkY1HimboDvKPV5ELktJEXlg'
+  "esMd-gkPe7eqMBzbotXS-wSZmqcyb_P_kKfM7pHs",
+  "yr3RWEHPdr1KauuBfkY1HimboDvKPV5ELktJEXlg"
 );
 
 

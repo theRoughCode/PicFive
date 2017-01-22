@@ -1,19 +1,23 @@
 * {
-    background-color:#ADD8E6;
     position: relative;
     text-align: center;
 }
 
+body {
+   /* background-image: url("../images/background.jpg"); */
+    background-color:#ADD8E6;
+}
+
 #title {
     font-size: 80px;
-    font-style: italic;
+    font-style: normal;
     text-align: center;
 }
 
-.button { 
-    font-family: "Comic Sans MS", sans-serif;
-    padding: 6px 16px;
-    font-size: 30px;
+.button, #upload { 
+    font-family: sans-serif;
+    padding: 3px 8px;
+    font-size: 24px;
     text-align: center;
     cursor: pointer;
     outline: none;
@@ -26,27 +30,44 @@
     margin-bottom: 10px;
 }
 
-.button:active {
+.button:active, #upload:active {
   background-color: #ff0066;
   box-shadow: 0 4px #666;
   transform: translateY(2px);
 }
 
-.button:hover {
+.button:hover, #upload:hover {
     background-color: #3e8e41
 } 
+
+#upload{
+    border-radius: 132px;
+}
+
 
 .col {
     padding-right: 10px;
     padding-left: 10px;
-    padding-top: 100px;
+    padding-top: 10px;
     padding-bottom: 10px;
 }
 
 #navBar {
     padding-right: 10px;
     padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     
+}
+
+img,
+.rows,
+.cols,
+.button{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#up{
+    font-size: 20px;
 }

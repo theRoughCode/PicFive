@@ -25,8 +25,11 @@ createModel(id, concepts) creates a new model with given id and concepts.
 base64 (file) converts the image from specified file path to base-64
  \\ String -> String
 
-  get_JSON(arr) parses a 2D array into a JSON object
-   \\ 2D array -> JSON
+get_JSON(arr) parses a 2D array into a JSON object
+\\ 2D array -> JSON
+
+getScore(url, buzzwords) produces the score based on the image provided
+ \\ String [String] -> Promise
 */
 
 const src_dir = "src/";
@@ -153,8 +156,6 @@ function train(model) {
   );
 }
 
-var k;
-
 // after training the model, you can now use it to predict on other inputs
 function predict(model, url) {
   return model.predict(url).then(
@@ -199,7 +200,12 @@ function generateWords(){
 }
 
 function is_NSFW(url){
-  const confidence = predictModel(Clarifai.NSFW_MODEL, url);
+  return predictModel(Clarifai.NSFW_MODEL, url).then(results => {
+    results = get_JSON(results);
+    const confidence = results.NSFW;
+    const tolerance = 0.95;
+    return (confidence > tolerance);
+  });
 }
 
 // parses 2D array into JSON
@@ -224,28 +230,36 @@ var promiseWhile = function(condition, action) {
 }
 
 function getScore(url, buzzwords) {
-  var c_models = Object.keys(models);
-  var count = 1;
-  var score = 0;
+  const penalty = -10;
 
-  return promiseWhile(() => {
-    return count < c_models.length;
-  }, function() {
-    return new Promise (function(resolve, reject) {
-      predictModel(eval(`models.${c_models[count-1]}`), url).then(results => {
-        results = get_JSON(results);
-        score += scoreMatches(results, buzzwords);
-        count++;
-        resolve(score);
-      }, errorHandler), function(err) {
-        reject(err);
+  return is_NSFW(url)
+    .then(nsfw => {
+      if (nsfw) return penalty;
+      else {
+        var c_models = Object.keys(models);
+        var count = 1;
+        var score = 0;
+
+        return promiseWhile(() => {
+          return count < c_models.length;
+        }, function() {
+          return new Promise (function(resolve, reject) {
+            predictModel(eval(`models.${c_models[count-1]}`), url).then(results => {
+              results = get_JSON(results);
+              score += scoreMatches(results, buzzwords);
+              count++;
+              resolve(score);
+            }, errorHandler), function(err) {
+              reject(err);
+            }
+          });
+        }).then(() => {
+          score = Math.floor(score);
+          return score;
+        });
       }
-    });
-  }).then(() => {
-    score = Math.floor(score);
-    return score;
-  });
-}
+    })
+  }
 
 function scoreMatches(results, buzzwords) {
   var score = 0;
@@ -255,9 +269,6 @@ function scoreMatches(results, buzzwords) {
   });
   return score;
 }
-
-//var score = getScore("http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg", ['parliament', 'military', 'president', 'people', 'administration']);
-//console.log(score);
 
 // Functions exported
 module.exports = {

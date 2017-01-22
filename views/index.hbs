@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>PicFive Game!</title>
+    <title>PicFive</title>
     <link rel="shortcut icon" type="image/x-icon" href="../images/favicon.png"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -11,11 +11,13 @@
 
 <body>
    
-    <script src="../script.js"></script>
+    <script src="script.js"></script>
     <div class="container-fluid">
         <div class="row">
 
             <div class="col-xs-12 bg-success">
+
+
                 <h1 id="title"><strong>PicFive!</strong></h1>
             </div>
             <div class="col-xs-12 bg-info">
@@ -29,7 +31,10 @@
                 <button class="button" onclick="test('Welcome Home!')";>Home</button>
             </div>
             <div class="col-lg-4 col-xs-4 bg-warning">
-                <button class="button" onclick="test('About what?')";>About</button>
+                <a href="leaderboards.hbs">
+                    <button class="button";>About</button>
+                </a>
+                
             </div>
             <div class="col-lg-4 col-xs-4 bg-warning">
                 <button class="button" onclick="test('Stil work in progress!')";>Log in</button>

@@ -16,7 +16,7 @@ app.set('view engine', 'hbs');
 // allows app to get data from POST
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use('views', express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 //database connection + fix for mongoose promise library

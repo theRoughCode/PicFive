@@ -16,8 +16,8 @@ body {
     text-align: center;
 }
 
-.button, 
-.upload { 
+.button,
+.upload {
     font-family: sans-serif;
     padding: 3px 8px;
     font-size: 50px;
@@ -35,9 +35,9 @@ body {
 
 .button:hover, .upload:hover {
     background-color: #3e8e41;
-} 
+}
 
-.button:active, 
+.button:active,
 .upload:active {
   background-color: #ff0066;
   box-shadow: 0 4px #666;
@@ -59,7 +59,7 @@ upload,
 .upload{
     border-radius: 132px;
     width: 132px;
-    background: transparent url("../images/cam.png") center center no-repeat;
+    background: transparent url("../../images/cam.png") center center no-repeat;
 
 }
 
@@ -67,20 +67,20 @@ upload,
     opacity: 0;
    }
 input[type=file] {
-    padding:5px; 
-    border:2px solid #ccc; 
+    padding:5px;
+    border:2px solid #ccc;
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
 
 
 input[type=submit] {
-    padding:5px 15px; 
-    background:#ccc; 
+    padding:5px 15px;
+    background:#ccc;
     border:0 none;
     cursor:pointer;
     -webkit-border-radius: 5px;
-    border-radius: 5px; 
+    border-radius: 5px;
 }
 
 .select input {
@@ -115,7 +115,7 @@ form.upload2 [name=select]  {
     padding-left: 10px;
     padding-top: 0px;
     padding-bottom: 0px;
-    
+
 }
 
 img,

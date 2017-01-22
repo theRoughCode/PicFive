@@ -239,7 +239,6 @@ function getScore(url, buzzwords) {
         var c_models = Object.keys(models);
         var count = 1;
         var score = 0;
-
         return promiseWhile(() => {
           return count < c_models.length;
         }, function() {
@@ -255,7 +254,7 @@ function getScore(url, buzzwords) {
           });
         }).then(() => {
           score = Math.floor(score);
-          console.log(score);
+          console.log("SCORE: "+ score);
           return score;
         });
       }

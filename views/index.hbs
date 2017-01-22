@@ -264,11 +264,9 @@
         font-size: 36px;
         list-style-type: none;
     }
-
     #up{
         font-size: 42px;
     }
-
     .center-text {
         text-align: center;
     }
@@ -308,11 +306,18 @@
         <div class="row">
             <div class="col-xs-12">
                 <h1 id="msgbox" class="big"> Upload your picture here!</h1>
-
             </div>
             <div class="col-xs-2">
-
-
+              <form action="/img" method="post" enctype="multipart/form-data">
+                <fieldset>
+                  <input type="text" class="form-control" name="user" placeholder="Username"  />
+                  <br />
+                  <div class="upload">
+                    <input type="file" name="imgUp" accept="image/*" onchange="wait(this);" />
+                  </div>
+                </fieldset>
+              </form>
+              <!--
                 <div class="form-group">
                     <label for="usr"><font color="white">Name:</font></label>
                     <input type="text" class="form-control" name="user" action='/img'>
@@ -320,14 +325,10 @@
 
                 <form class="upload" action='/img' method='POST' enctype="multipart/form-data">
                     <input type="file" name="imgUp" accept="image/*" onchange="wait(this);" >
-                </form>
-
+                </form> -->
             </div>
-
         </div>
-
     </div>
-
   <section id="content"></section>
 </body>
 </html>

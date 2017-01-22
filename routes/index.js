@@ -5,6 +5,8 @@ var functions = require('../Functions');
 var models    = require('../Models');
 var Promise   = require('bluebird');
 var cool      = require('cool-ascii-faces');
+var jimp     = require('jimp');
+var bodyParser = require('body-parser');
 
 var buzzwords = ['CAR', 'BANANA', 'WATER', 'ICE', 'TREE'];
 //the query we will make on the database (max 50 players, sort largest > smallest)
@@ -33,43 +35,44 @@ router.get('/', function(req, res) {
 });
 
 //receive image
+// img, user
 router.post('/img', function(req, res) {
-    var img = functions.base64(req.files.imgUp.data);
-    var usern = req.body.user;
+    var img;
+    if (req.query.img) img = req.query.img;
+    else img = functions.base64(req.files.imgUp.data);
+    var scorePromise = functions.getScore(img, buzzwords);
+
+    var usern = req.query.user || req.body.user;
     if (usern == '') usern ='apparently has no name';
 
     //do function calls to get the player's score
-    var scorePromise = functions.getScore(img, buzzwords);
-    points = scorePromise;
     var player = new score({
-        name : usern,
-        val : points
+      name : usern
     });
     scorePromise.then(result => {
+      console.log(result);
       points = result;
     }, err => console.error(err))
-    .then(function(err, list) {
+    .then(function(list, err) {
+      if (err) return console.error(err);
+      player.val = points;
+      player.save(function (points, err) {
+        if (err) console.log(err);
+        console.log("Player " + player.name + ' saved!');
+      });
+      query.exec(function(err, scores) {
         if (err) return console.error(err);
-        player.val = points;
-        player.save(function (points, err) {
-            if (err) console.log(err);
-            console.log('Saved: ', points);
-        });
-        if (err) return console.error(err);
-        query.exec(function(err, scores) {
-            if (err) return console.error(err);
-            for(var i = 0; i < scores.length; i++) {
-                // edit res to send leaderboard to client
-                board[1][i] = scores[i].name;
-                board[2][i] = scores[i].val;
-            }
-            res.redirect('/views/leaderboards');
-        })
+        for(var i = 0; i < scores.length; i++) {
+          // edit res to send leaderboard to client
+          board[i][1] = scores[i].name;
+          board[i][2] = scores[i].val;
+        }
+        res.redirect('/views/leaderboards');
+      })
     })
 });
 
 router.get('/views/leaderboards', function(req, res) {
-  console.log(board);
     res.render('leaderboards', {
         mainscore : points,
         user: board

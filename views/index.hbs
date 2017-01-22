@@ -14,14 +14,21 @@
         text-align: center;
     }
     body {
-       /* background-image: url("../images/background.jpg"); */
-        background-color:white;
+       background: url("https://static.pexels.com/photos/1852/dawn-landscape-mountains-nature.jpg") no-repeat center center fixed;
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;
     }
 
     #title {
         font-size: 80px;
         font-style: normal;
         text-align: center;
+    }
+
+    .upload{
+      background-color: black;
     }
 
     .button,
@@ -32,8 +39,6 @@
         text-align: center;
         cursor: pointer;
         outline: none;
-        color: #fff;
-        background-color: #4CAF50;
         border: none;
         border-radius: 5px;
         box-shadow: 0 6px #999;
@@ -41,7 +46,7 @@
         margin-bottom: 10px;
     }
 
-    .button:hover, .upload:hover {
+    .upload:hover {
         background-color: #3e8e41;
     }
 
@@ -51,8 +56,6 @@
       box-shadow: 0 4px #666;
       transform: translateY(2px);
     }
-
-
 
 
     upload,
@@ -157,16 +160,10 @@
 <body class="index_1">
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-xs-12">
-
-
                 <h1 id="title"><strong>PicFive!</strong></h1>
             </div>
-
-
         </div>
-
         <div class="row" id="navBar">
           <p>
 

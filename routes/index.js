@@ -62,7 +62,7 @@ router.get('/api/wordbank', function(req, res) {
 });
 
 router.get('/api/get_score', function(req, res){
-  var img_url = "https://www.celebjihad.com/celeb-jihad/images/megan_fox_naked_heels.jpg";
+  var img_url = req.query.url;
   console.log(img_url);
   if (!buzzwords) console.error("No Buzzwords generated yet!");
   else {
@@ -70,7 +70,6 @@ router.get('/api/get_score', function(req, res){
     var scorePromise = functions.getScore(img_url, buzzwords);
     scorePromise.then(result => {
       points = result;
-      console.log(points);
     }, err => console.error(err));
   }
 });

@@ -2,7 +2,7 @@ var express = require('express');        // call express
 var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
-var fileUpload = require('express-fileUpload');
+var fileUpload = require('express-fileupload');
 var port = process.env.PORT || 5000;        // set our port
 
 var routes = require('./routes/index');

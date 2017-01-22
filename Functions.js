@@ -242,6 +242,7 @@ function getScore(url, buzzwords) {
       }
     });
   }).then(() => {
+    score = Math.floor(score);
     return score;
   });
 }
@@ -255,9 +256,8 @@ function scoreMatches(results, buzzwords) {
   return score;
 }
 
-//predictModel(`models.${temp}`, "http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg").then(x=> console.log(x));
-
-var score = getScore("http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg", ['parliament', 'military', 'president', 'people', 'administration']);
+//var score = getScore("http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg", ['parliament', 'military', 'president', 'people', 'administration']);
+//console.log(score);
 
 // Functions exported
 module.exports = {

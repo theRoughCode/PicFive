@@ -66,8 +66,11 @@ router.get('/api/get_score', function(req, res){
   console.log(img_url);
   if (!buzzwords) console.error("No Buzzwords generated yet!");
   else {
-    const score = functions.getScore(img_url, buzzwords);
-    console.log(score);
+    var points;
+    var scorePromise = functions.getScore(img_url, buzzwords);
+    scorePromise.then(result => {
+      points = result;
+    }, err => console.error(err));
   }
 });
 

@@ -33,7 +33,7 @@ getScore(url, buzzwords) produces the score based on the image provided
 */
 
 const src_dir = "src/";
-const score_multiplier = 20;
+const score_multiplier = 20; // multiples by confidence score
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
@@ -199,6 +199,9 @@ function generateWords(){
   return buzzwords;
 }
 
+console.log(generateWords());
+
+// Determines if image is NSFW
 function is_NSFW(url){
   return predictModel(Clarifai.NSFW_MODEL, url).then(results => {
     results = get_JSON(results);

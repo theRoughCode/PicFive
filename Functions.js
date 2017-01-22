@@ -255,6 +255,7 @@ function getScore(url, buzzwords) {
           });
         }).then(() => {
           score = Math.floor(score);
+          console.log(score);
           return score;
         });
       }

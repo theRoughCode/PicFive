@@ -6,7 +6,7 @@ var models    = require('../Models');
 var Promise   = require('bluebird');
 var cool      = require('cool-ascii-faces');
 
-var buzzwords = ['car', 'banana', 'water', 'ice', 'tree'];
+var buzzwords = ['CAR', 'BANANA', 'WATER', 'ICE', 'TREE'];
 //the query we will make on the database (max 50 players, sort largest > smallest)
 var query = score.find().sort({val: -1}).limit(10);
 var board = [
@@ -24,20 +24,12 @@ var board = [
 var points = 0;
 //GET homepage
 router.get('/', function(req, res) {
-    var buzzwords = functions.generateWords();
+    if(!buzzwords) buzzwords = functions.generateWords();
     console.log(buzzwords);
     res.render('index', {
       words: buzzwords
     });
     console.log('GET - homepage');
-});
-
-router.get('/leaderboards', function(req, res) {
-  console.log(user);
-  res.render('leaderboards', {
-    mainscore : 500,
-    user: board
-  });
 });
 
 //receive image
@@ -55,7 +47,6 @@ router.post('/img', function(req, res) {
     });
     scorePromise.then(result => {
       points = result;
-      console.log(points);
     }, err => console.error(err))
     .then(function(err, list) {
         if (err) return console.error(err);
@@ -71,8 +62,6 @@ router.post('/img', function(req, res) {
                 // edit res to send leaderboard to client
                 board[1][i] = scores[i].name;
                 board[2][i] = scores[i].val;
-                console.log(scores[i].name);
-                console.log(scores[i].val);
             }
             res.redirect('/views/leaderboards');
         })
@@ -82,26 +71,7 @@ router.post('/img', function(req, res) {
 router.get('/views/leaderboards', function(req, res) {
     res.render('leaderboards', {
         mainscore : points,
-        winner1 : board[1][0],
-        winner2 : board[1][1],
-        winner3 : board[1][2],
-        winner4 : board[1][3],
-        winner5 : board[1][4],
-        winner6 : board[1][5],
-        winner7 : board[1][6],
-        winner8 : board[1][7],
-        winner9 : board[1][8],
-        winner10 : board[1][9],
-        score1 : board[2][0],
-        score2 : board[2][1],
-        score3 : board[2][2],
-        score4 : board[2][3],
-        score5 : board[2][4],
-        score6 : board[2][5],
-        score7 : board[2][6],
-        score8 : board[2][7],
-        score9 : board[2][8],
-        score10 : board[2][9]
+        user: board
     })
 });
 

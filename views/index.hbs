@@ -60,8 +60,8 @@
 
                <!-- <div class="upload"><input type="file" accept='image/*' capture='camera' onchange="this.form.submit();" ></div> -->
 
-                <form class="upload" action='/img' method='POST'>
-                    <input type="file" name="select" accept="image/*" onchange="this.form.submit();" >
+                <form class="upload" action='/img' method='POST' enctype="multipart/form-data">
+                    <input type="file" name="imgUp" accept="image/*" onchange="this.form.submit();" >
                 </form>
 
             </div>

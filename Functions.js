@@ -178,8 +178,7 @@ function errorHandler(err) {
 }
 
 // convert image to base 64
-function base64(file) {
-  var bitmap = fs.readFileSync(file);
+function base64(bitmap) {
   return new Buffer(bitmap).toString('base64');
 }
 

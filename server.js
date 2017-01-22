@@ -2,7 +2,7 @@ var express = require('express');        // call express
 var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
-
+var fileUpload = require('express-fileUpload');
 var port = process.env.PORT || 8000;        // set our port
 
 var routes = require('./routes/index');
@@ -17,6 +17,7 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('views', express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 //database connection + fix for mongoose promise library
 mongoose.Promise = global.Promise;

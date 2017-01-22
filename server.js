@@ -9,7 +9,7 @@ var routes = require('./routes/index');
 var app = express();                 // define our app using express
 
 // view engine setup (will probably need later)
-app.set('views', path.join(__dirname, 'views'));
+app.set('/views', path.join(__dirname, '/views'));
 app.set('view engine', 'hbs');
 
 

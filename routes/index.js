@@ -15,6 +15,12 @@ router.get('/', function(req, res) {
     console.log('GET - homepage');
 });
 
+router.get('/leaderboards', function(req, res) {
+  res.render('leaderboards', {
+    mainscore : 500
+  });
+});
+
 //receive image
 router.post('/img', function(req, res) {
     var img = functions.base64(req.files.imgUp.data);

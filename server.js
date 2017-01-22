@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload');
-var port = process.env.PORT || 8000;        // set our port
+var port = process.env.PORT || 5000;        // set our port
 
 var routes = require('./routes/index');
 var app = express();                 // define our app using express
@@ -16,6 +16,7 @@ app.set('view engine', 'hbs');
 // allows app to get data from POST
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 //database connection + fix for mongoose promise library
@@ -41,6 +42,29 @@ app.use(function (req, res, next) {
 // app.use(session({ secret: process.env.SESSION_SECRET }));
 // app.use(passport.initialize());
 // app.use(passport.session()); // persistent login sessions
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+	res.status(err.status || 500);
+	res.render('error', {
+	  message: err.message,
+	  error: err
+	});
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+	message: err.message,
+	error: {}
+  });
+});
+
 
 // load routes, sends app to router.js
 require('./router')(app);

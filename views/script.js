@@ -1,3 +1,4 @@
+
 $(function () {
   // Grab the template script
   var theTemplateScript = $("#address-template").html();
@@ -47,23 +48,19 @@ $(function () {
     });
 });
 });
-
+/*
 (function (){
-	var content = document.getElementById('content');
+	var content = document.querySelector('content');
 	var html = '';
 	var data = {
 		title: "Welcome to PicFive!"
 	};
 
-	var template = Handlebars.compile(document.getElementById('header-template').innerHTML);
+	var template = Handlebars.compile(document.querySelector('header-template').innerHTML);
 	content.innerHTML = template(data);
 
 })();
 
 function test(msg) {
     alert(msg);
-}
-
-
-
-
+}*/

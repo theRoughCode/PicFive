@@ -136,6 +136,7 @@
 
     .listFont {
         font-size: 36px;
+        list-style-type: none;
     }
 
     #up{
@@ -192,11 +193,11 @@
                     <label for="usr">Name:</label>
                     <input type="text" class="form-control" id="usr">
                 </div>
-                
-                <form class="upload" action='/img' method='POST' enctype="multipart/form-data">                      
+
+                <form class="upload" action='/img' method='POST' enctype="multipart/form-data">
                     <input type="file" name="imgUp" accept="image/*" onchange="this.form.submit();" >
                 </form>
-                
+
 
 
             </div>

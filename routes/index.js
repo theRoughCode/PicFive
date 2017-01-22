@@ -19,7 +19,7 @@ var board = [
   [7,'user',0],
   [8,'user',0],
   [9,'user',0],
-  [10,'user',0],
+  [10,'user',0]
 ];
 var points = 0;
 //GET homepage
@@ -33,6 +33,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/leaderboards', function(req, res) {
+  console.log(user);
   res.render('leaderboards', {
     mainscore : 500,
     user: board

@@ -8,8 +8,8 @@ var cool      = require('cool-ascii-faces');
 
 var buzzwords = ['car', 'banana', 'water', 'ice', 'tree'];
 //the query we will make on the database (max 50 players, sort largest > smallest)
-var query = score.find().sort({val: -1}).limit(50);
-var winner = ['N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'];
+var query = score.find().sort({val: -1}).limit(10);
+var winner = ['user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user', 'user'];
 var winner_score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var points = 0;
 //GET homepage
@@ -53,13 +53,13 @@ router.post('/img', function(req, res) {
         if (err) return console.error(err);
         query.exec(function(err, scores) {
             if (err) return console.error(err);
-            scores.forEach(function(scoreA, winner_score, score) {
+            for(var i = 0; i < scores.length; i++) {
                 // edit res to send leaderboard to client
-                winner_score = scoreA.name;
-                score = scoreA.val;
-                console.log(scoreA.name);
-                console.log(scoreA.val);
-            })
+                winner[i] = scores[i].name;
+                winner_score[i] = scores[i].val;
+                console.log(scores[i].name);
+                console.log(scores[i].val);
+            }
             res.redirect('/views/leaderboards');
         })
     })
@@ -68,16 +68,16 @@ router.post('/img', function(req, res) {
 router.get('/views/leaderboards', function(req, res) {
     res.render('leaderboards', {
         mainscore : points,
-        winner1 : score[0],
-        winner2 : score[1],
-        winner3 : score[2],
-        winner4 : score[3],
-        winner5 : score[4],
-        winner6 : score[5],
-        winner7 : score[6],
-        winner8 : score[7],
-        winner9 : score[8],
-        winner10 : score[9],
+        winner1 : winner[0],
+        winner2 : winner[1],
+        winner3 : winner[2],
+        winner4 : winner[3],
+        winner5 : winner[4],
+        winner6 : winner[5],
+        winner7 : winner[6],
+        winner8 : winner[7],
+        winner9 : winner[8],
+        winner10 : winner[9],
         score1 : winner_score[0],
         score2 : winner_score[1],
         score3 : winner_score[2],

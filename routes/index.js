@@ -14,7 +14,11 @@ var winner_score = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var points = 0;
 //GET homepage
 router.get('/', function(req, res) {
-    res.render('index');
+    var buzzwords = functions.generateWords();
+    console.log(buzzwords);
+    res.render('index', {
+      words: buzzwords
+    });
     console.log('GET - homepage');
 });
 

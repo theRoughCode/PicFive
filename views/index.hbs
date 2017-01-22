@@ -176,11 +176,9 @@
             <div class="col-xs-12 bg-success">
                 <h1 id="up"><strong>Words of the day</strong></h1>
                 <ul class="listFont">
-                    <li>{{one}}</li>
-                    <li>{{two}}</li>
-                    <li>{{three}}</li>
-                    <li>{{four}}</li>
-                    <li>{{five}}</li>
+                  {{#each words}}
+                  <li>{{ this }}</li>
+                  {{/each}}
                 </ul>
             </div>
         </div>

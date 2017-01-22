@@ -198,8 +198,6 @@ function generateWords(){
   return buzzwords;
 }
 
-console.log(generateWords());
-
 // Determines if image is NSFW
 function is_NSFW(url){
   return predictModel(Clarifai.NSFW_MODEL, url).then(results => {

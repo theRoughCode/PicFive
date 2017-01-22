@@ -28,3 +28,8 @@ $(function () {
 function test(msg) {
     alert(msg);
 }*/
+
+function wait(item){
+    document.getElementById("msgbox").innerHTML = "Please Wait...";
+    item.form.submit;
+}

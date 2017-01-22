@@ -1,15 +1,14 @@
-var express = require('express');
-var router = express.Router();
-var score = require('../app/models/score');
-var functions = require('../Functions');
-var models    = require('../Models');
-var Promise   = require('bluebird');
-var cool      = require('cool-ascii-faces');
-var jimp     = require('jimp');
-var bodyParser = require('body-parser');
+var express     = require('express');
+var router      = express.Router();
+var score       = require('../app/models/score');
+var functions   = require('../Functions');
+var models      = require('../Models');
+var Promise     = require('bluebird');
+var cool        = require('cool-ascii-faces');
+var jimp        = require('jimp');
+var bodyParser  = require('body-parser');
 
 var buzzwords = ['CAR', 'BANANA', 'WATER', 'ICE', 'TREE'];
-//the query we will make on the database (max 50 players, sort largest > smallest)
 var board = [
   [1,'user',0],
   [2,'user',0],
@@ -34,8 +33,8 @@ router.get('/', function(req, res) {
     console.log('GET - homepage');
 });
 
-//receive image
-// img, user
+// SEND IMAGE TO API TO CALCULATE SCORE
+// (img, user)
 router.post('/img', function(req, res) {
     var img;
     if (req.query.img) img = req.query.img;
@@ -65,6 +64,7 @@ router.post('/img', function(req, res) {
   })
 
 router.get('/views/leaderboards', function(req, res) {
+  //the query we will make on the database (max 50 players, sort largest > smallest)
     const query = score.find().sort({val: -1}).limit(10);
     query.exec(function(err, scores) {
       if (err) return console.error(err);

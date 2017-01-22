@@ -2,6 +2,7 @@ var Clarifai = require('clarifai');
 var models   = require('./Models');
 var fs       = require('fs');
 var Promise  = require('bluebird');
+require('dotenv').config();
 
 /*   FUNCTIONS EXPORTED
 addConcepts(id, concepts) adds a concept (keyword) to the model specified by id
@@ -37,8 +38,8 @@ const score_multiplier = 20; // multiples by confidence score
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
-  "esMd-gkPe7eqMBzbotXS-wSZmqcyb_P_kKfM7pHs",
-  "yr3RWEHPdr1KauuBfkY1HimboDvKPV5ELktJEXlg"
+  process.env.CLARIFAI_ID,
+  process.env.CLARIFAI_SECRET
 );
 
 

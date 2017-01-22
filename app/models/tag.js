@@ -1,5 +1,5 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose  = require('mongoose');
+var Schema    = mongoose.Schema;
 
 var tagSchema = mongoose.Schema({
         tag1        : String,

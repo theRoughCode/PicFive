@@ -1,3 +1,10 @@
+var express = require('express');
+var router = express.Router();
+var score = require('../app/models/score');
+//the query we will make on the database (max 50 players, sort largest > smallest)
+var query = score.find().sort({val: -1}).limit(50);
+
+var text = 'ServerUp'
 var express   = require('express');
 var router    = express.Router();
 var functions = require('../Functions');
@@ -12,16 +19,40 @@ router.get('/', function(req, res) {
     res.render('index', {
         title: text
     });
-    console.log('GET - homepage')
+    console.log('GET - homepage');
 });
 
 //receive image
 router.post('/img', function(req, res) {
-    img = req.body.img
-    console.log('POST - text');
-    //10 function calls to get a score
-    console.log(img);
-    //res.render(something with a leaderboard/score/whatever thing)
+    var img = req.body.img;
+    console.log('POST - image : ', img);
+
+    //do function calls to get the player's score
+
+    //adding to the database
+    var player = new score({
+        name : req.body.name, //name here
+        val : req.body.val //score here
+    });
+    player.save(function (err, data) {
+        if (err) console.log(err);
+        console.log('Saved: ', data);
+    }).then(function(err, list) {
+        if (err) return console.error(err);
+        query.exec(function(err, scores) {
+            if (err) return console.error(err);
+            scores.forEach(function(scoreA) {
+                // edit res to send leaderboard to client
+                console.log(scoreA.name);
+                console.log(scoreA.val);
+            })
+        })
+    });
+    //res.render leaderboard page
+    res.render('index', {
+        title : text
+    });
+
 });
 
 // GET 5 BUZZWORDS OF THE DAY

@@ -1,7 +1,7 @@
 var express = require('express');        // call express
 var bodyParser = require('body-parser');
 var path = require('path');
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 var port = process.env.PORT || 8000;        // set our port
 
@@ -17,8 +17,17 @@ app.set('view engine', 'hbs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//database connection
-//mongoose.connect(process.env.MLAB_URI);
+//database connection + fix for mongoose promise library
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://admin:q0pw9o@ds056009.mlab.com:56009/tryingnewthings');
+// keep mongoose database connected
+var options = { server: { socketOptions: { keepAlive: 1000, connectTimeoutMS: 1000 } },
+                replset: { socketOptions: { keepAlive: 1000, connectTimeoutMS : 1000 } } };
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+// Wait for the database connection to establish, then start the app.
+db.once('open', function() {
+});
 
 // if a request is made, logs event
 app.use(function (req, res, next) {

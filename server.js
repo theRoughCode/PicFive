@@ -9,13 +9,14 @@ var routes = require('./routes/index');
 var app = express();                 // define our app using express
 
 // view engine setup (will probably need later)
-app.set('/views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
 
 // allows app to get data from POST
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //database connection + fix for mongoose promise library
 mongoose.Promise = global.Promise;

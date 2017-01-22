@@ -2,13 +2,14 @@ var express     = require('express');
 var router      = express.Router();
 var score       = require('../app/models/score');
 var functions   = require('../Functions');
+var tag         = require('../app/models/tag');
 var models      = require('../Models');
 var Promise     = require('bluebird');
 var cool        = require('cool-ascii-faces');
 var jimp        = require('jimp');
 var bodyParser  = require('body-parser');
 
-var buzzwords = ['CAR', 'BANANA', 'WATER', 'ICE', 'TREE'];
+var buzzwords= ['COMPUTER', 'CAN', 'GLASSES', 'GIRL', 'BIRD'];
 var board = [
   [1,'user',0],
   [2,'user',0],
@@ -25,12 +26,18 @@ var points = 0;
 var usern = "No Name";
 //GET homepage
 router.get('/', function(req, res) {
-    if(!buzzwords) buzzwords = functions.generateWords();
+  const query = tag.findOne();
+  query.exec(function(err, words){
+    if(err) return console.error(err);
+    if(words)  buzzwords = words.tags;
+    else res.redirect('/api/wordbank');
+  }).then(function(data, err){
     console.log(buzzwords);
     res.render('index', {
       words: buzzwords
-    });
+    })
     console.log('GET - homepage');
+  });
 });
 
 // SEND IMAGE TO API TO CALCULATE SCORE
@@ -84,8 +91,14 @@ router.get('/views/leaderboards', function(req, res) {
 // GET 5 BUZZWORDS OF THE DAY
 router.get('/api/wordbank', function(req, res) {
   buzzwords = functions.generateWords();
-  res.redirect('/');
-  console.log(buzzwords);
+  tag.update(null, { $set: { tags: buzzwords }}, function(err, data){
+    if (err) return console.error(err);
+    console.log("New words generated!");
+    var words = new tag({
+      tags: buzzwords
+    });
+    res.redirect('/');
+  });
 });
 
 router.get('/api/get_score', function(req, res){

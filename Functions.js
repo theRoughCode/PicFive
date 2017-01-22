@@ -23,15 +23,11 @@ createModel(id, concepts) creates a new model with given id and concepts.
 base64 (file) converts the image from specified file path to base-64
  \\ String -> String
 
- getKeywords() returns the 2D array keywords
-  \\ Void -> 2D Array
-
   get_JSON(arr) parses a 2D array into a JSON object
    \\ 2D array -> JSON
 */
 
 const src_dir = "src/";
-var keywords = [];
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
@@ -64,7 +60,7 @@ function createModel(id, concepts) {
 
 function initModel(id, fn, param) {
   if (param){
-    app.models.initModel(id).then(
+    return app.models.initModel(id).then(
       x => fn(x, param),
       errorHandler
     )
@@ -93,7 +89,7 @@ function trainModel(id) {
 
 // Predict keywords and probability of url with model
 function predictModel(id, url) {
-  initModel(id, predict, url);
+  return initModel(id, predict, url);
 }
 
 // Model -> Void
@@ -154,19 +150,22 @@ function train(model) {
   );
 }
 
+var k;
+
 // after training the model, you can now use it to predict on other inputs
 function predict(model, url) {
-  model.predict(url).then(
+  return model.predict(url).then(
     function(response) {
       const outputs = [];
       var concepts;
       for (var i in response.outputs){
         concepts = response.outputs[i].data.concepts;
-        keywords = [];
+        var keywords = [];
         concepts.forEach(concept => keywords.push([concept.name, concept.value]));
+        return keywords;
       }
     }, errorHandler
-  ).then(getKeywords, errorHandler);
+  );
 }
 
 // outputs errors
@@ -178,11 +177,6 @@ function errorHandler(err) {
 function base64(file) {
   var bitmap = fs.readFileSync(file);
   return new Buffer(bitmap).toString('base64');
-}
-
-// returns picture's keywords
-function getKeywords() {
-  return keywords;
 }
 
 function generateWords(){
@@ -223,7 +217,6 @@ module.exports = {
   predictModel,
   createModel,
   base64,
-  getKeywords,
   generateWords,
   get_JSON
 }

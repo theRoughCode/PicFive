@@ -35,12 +35,13 @@ router.get('/leaderboards', function(req, res) {
 //receive image
 router.post('/img', function(req, res) {
     var img = functions.base64(req.files.imgUp.data);
+    var usern = req.body.user;
 
     //do function calls to get the player's score
     var scorePromise = functions.getScore(img, buzzwords);
     points = scorePromise;
     var player = new score({
-        name : 'username',
+        name : usern,
         val : points
     });
     scorePromise.then(result => {

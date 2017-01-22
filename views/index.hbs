@@ -190,13 +190,13 @@
 
                 <div class="form-group">
                     <label for="usr">Name:</label>
-                    <input type="text" class="form-control" id="usr">
+                    <input type="text" class="form-control" name="user" action='/img'>
                 </div>
-                
-                <form class="upload" action='/img' method='POST' enctype="multipart/form-data">                      
+
+                <form class="upload" action='/img' method='POST' enctype="multipart/form-data">
                     <input type="file" name="imgUp" accept="image/*" onchange="this.form.submit();" >
                 </form>
-                
+
 
 
             </div>

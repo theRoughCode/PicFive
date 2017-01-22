@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 
-var port = process.env.PORT || 3000;        // set our port
+var port = process.env.PORT || 8000;        // set our port
 
 var routes = require('./routes/index');
 var app = express();                 // define our app using express

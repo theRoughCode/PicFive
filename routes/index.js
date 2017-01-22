@@ -5,10 +5,6 @@ var functions = require('../Functions');
 var models    = require('../Models');
 var Promise   = require('bluebird');
 var cool      = require('cool-ascii-faces');
-const EventEmitter = require('events');
-class MyEmitter extends EventEmitter {};
-const emitter = new MyEmitter();
-emitter.setMaxListeners(20);
 
 var buzzwords = ['car', 'banana', 'water', 'ice', 'tree'];
 //the query we will make on the database (max 50 players, sort largest > smallest)

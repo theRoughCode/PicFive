@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
-        
+
     <script id="header-template" type="text/x-handlebars-template"></script>
-</head> 
+</head>
 
 <body class="index_1">
-   
+
     <script src="script.js"></script>
     <div class="container-fluid">
         <div class="row">
@@ -22,25 +22,25 @@
             </div>
             <div class="col-xs-12 bg-info">
                 <img src="../images/profile.png" alt="title">
-            </div>            
-            
+            </div>
+
         </div>
-        
+
         <div class="row" id="navBar">
             <div class="col-lg-4 col-xs-4 bg-warning">
                 <button class="button" onclick="test('Welcome Home!')";>Home</button>
             </div>
             <div class="col-lg-4 col-xs-4 bg-warning">
-                <a href="leaderboards.hbs">
+                <a href="./leaderboards.hbs">
                     <button class="button";>About</button>
                 </a>
-                
+
             </div>
             <div class="col-lg-4 col-xs-4 bg-warning">
                 <button class="button" onclick="test('Stil work in progress!')";>Log in</button>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-xs-12 bg-success">
                 <h1 id="up"><strong>Words of the day</strong></h1>
@@ -53,26 +53,26 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="row">
 
-            <div class="col-xs-2 bg-danger"> 
-                
+            <div class="col-xs-2 bg-danger">
+
                <!-- <div class="upload"><input type="file" accept='image/*' capture='camera' onchange="this.form.submit();" ></div> -->
-  
+
                 <form class="upload" action='/img' method='POST'>
                     <input type="file" name="select" accept="image/*" onchange="this.form.submit();" >
                 </form>
-            
+
             </div>
             <div class="col-xs-10 bg-danger">
                 <h1 class="big"> Upload your pictures here!</h1>
-            
+
             </div>
-        </div>   
-            
-    </div>  
-    
+        </div>
+
+    </div>
+
 
 
   <section id="content"></section>

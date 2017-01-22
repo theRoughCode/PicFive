@@ -1,5 +1,6 @@
 var Clarifai = require('clarifai');
-var fs = require('fs');
+var models   = require('./Models');
+var fs       = require('fs');
 
 /*   FUNCTIONS EXPORTED
 addConcepts(id, concepts) adds a concept (keyword) to the model specified by id
@@ -28,6 +29,7 @@ base64 (file) converts the image from specified file path to base-64
 */
 
 const src_dir = "src/";
+const score_multiplier = 20;
 
 // instantiate new Clarifai app
 var app = new Clarifai.App(
@@ -190,7 +192,7 @@ function generateWords(){
     var num = Math.floor(Math.random() * words.length);
     var buzz = words[num];
     var dup = buzzwords.reduce((x, y) => ((y === buzz) || x), false);
-    if (!dup) buzzwords.push(buzz);
+    if (!dup) buzzwords.push(buzz.toUpperCase());
   }
   return buzzwords;
 }
@@ -203,10 +205,48 @@ function is_NSFW(url){
 function get_JSON(arr){
   var json = {};
   arr.forEach(x => {
-    json[x[0]] = x[1];
+    json[x[0].toUpperCase()] = x[1];
   });
   return json;
 }
+
+//
+function getScore(url, buzzwords) {
+  var c_models = Object.keys(models);
+  var count = 1;
+  var score = 0;
+  var promises = c_models.map(m => asyncPredict(m, url, buzzwords));
+  var temp = Promise.all(promises).then(
+    score => console.log(score),
+    errorHandler
+  );
+}
+
+function asyncPredict(model, url, buzzwords) {
+  console.log(predictModel(eval(`models.${model}`), url));
+  return new Promise (function(resolve, reject) {
+    predictModel(eval(`models.${model}`), url).then(results => {
+      results = get_JSON(results);
+      score += scoreMatches(results, buzzwords);
+      resolve(score);
+    }, function(err) {
+      reject(err);
+    });
+  })
+}
+
+function scoreMatches(results, buzzwords) {
+  var score = 0;
+  buzzwords.forEach(b => {
+    var confidence = eval(`results.${b.toUpperCase()}`);
+    if(typeof confidence === 'number') score += (confidence * score_multiplier);
+  });
+  return score;
+}
+
+//predictModel(`models.${temp}`, "http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg").then(x=> console.log(x));
+
+getScore("http://i2.cdn.cnn.com/cnnnext/dam/assets/170121153100-donald-trump-cia-2-exlarge-169.jpg", ['parliament', 'military', 'president', 'people', 'administration']);
 
 // Functions exported
 module.exports = {
@@ -218,5 +258,6 @@ module.exports = {
   createModel,
   base64,
   generateWords,
-  get_JSON
+  get_JSON,
+  getScore
 }

@@ -7,7 +7,6 @@ const TRAVEL = Clarifai.TRAVEL_MODEL; // Identifies specific features of residen
 const NSFW = Clarifai.NSFW_MODEL;  // likelihood image contains pornography
 const WEDDINGS = "c386b7a870114f4a87477c0824499348"; // includes brides, grooms, dresses, flowers, etc
 const PETS = "pets";
-const PETSID = "petsID";
 const TEST = "test";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -18,6 +17,5 @@ module.exports = {
   NSFW,
   WEDDINGS,
   PETS,
-  PETSID,
   TEST
 }

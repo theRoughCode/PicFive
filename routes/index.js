@@ -9,7 +9,7 @@ var cool        = require('cool-ascii-faces');
 var jimp        = require('jimp');
 var bodyParser  = require('body-parser');
 
-var buzzwords= ['COMPUTER', 'CAN', 'GLASSES', 'GIRL', 'BIRD'];
+var buzzwords = ['COMPUTER', 'CAN', 'GLASSES', 'GIRL', 'BIRD'];
 var board = [
   [1,'user',0],
   [2,'user',0],
@@ -21,9 +21,8 @@ var board = [
   [8,'user',0],
   [9,'user',0],
   [10,'user',0]
-];
-var points = 0;
-var usern = "No Name";
+];;
+
 //GET homepage
 router.get('/', function(req, res) {
   const query = tag.findOne();
@@ -48,31 +47,31 @@ router.post('/img', function(req, res) {
     else img = functions.base64(req.files.imgUp.data);
     var scorePromise = functions.getScore(img, buzzwords);
 
-    usern = req.query.user || req.body.user;
+    var usern = req.query.user || req.body.user;
     if (usern == '') usern ='apparently has no name';
 
     //do function calls to get the player's score
     var player = new score({
       name : usern
     });
-    scorePromise.then(result => {
-      console.log(result);
-      points = result;
-    }, err => console.error(err))
-    .then(function(list, err) {
+    scorePromise.then(function(result, err) {
       if (err) return console.error(err);
-      player.val = points;
-      player.save(function (points, err) {
+      player.val = result;
+      player.save(function (result, err) {
         if (err) console.log(err);
         console.log("Player " + player.name + ' saved!');
       });
-        res.redirect('/views/leaderboards');
+      res.redirect('/leaderboards/:user(' + player.name + ')/:score(' + player.val + ')');
     })
-  })
+})
 
-router.get('/views/leaderboards', function(req, res) {
-  //the query we will make on the database (max 50 players, sort largest > smallest)
+// View leaderboards
+router.get('/leaderboards/:user?/:score?', function(req, res) {
+    //the query we will make on the database (max 50 players, sort largest > smallest)
+    const usern = req.params.user || null;
+    const points = req.params.score || null;
     const query = score.find().sort({val: -1}).limit(10);
+    console.log(usern !== null);
     query.exec(function(err, scores) {
       if (err) return console.error(err);
       for(var i = 0; i < scores.length; i++) {
@@ -81,9 +80,10 @@ router.get('/views/leaderboards', function(req, res) {
         board[i][2] = scores[i].val;
       }
     res.render('leaderboards', {
-        player : usern,
-        mainscore : points,
-        user : board
+      hasUser: (usern !== null),
+      player : usern,
+      mainscore : points,
+      user : board
     })
   });
 });
@@ -99,19 +99,6 @@ router.get('/api/wordbank', function(req, res) {
     });
     res.redirect('/');
   });
-});
-
-router.get('/api/get_score', function(req, res){
-  var img_url = req.query.url;
-  console.log(img_url);
-  if (!buzzwords) console.error("No Buzzwords generated yet!");
-  else {
-    var points;
-    var scorePromise = functions.getScore(img_url, buzzwords);
-    scorePromise.then(result => {
-      points = result;
-    }, err => console.error(err));
-  }
 });
 
 router.get('/cool', function(request, response) {

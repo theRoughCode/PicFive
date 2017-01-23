@@ -232,9 +232,14 @@
             </div>
         </div>
         <div class="center-text">
+          {{#if hasUser}}
             <h1> {{player}}'s score:</h1>
             <div class="count"> {{mainscore}} </div>
             <p> Did you make it on the leaderboards? Here are the best scores: </p>
+          {{else}}
+            <h1>Leaderboads</h1>
+            <p>Here are our top 10 players!</p>
+          {{/if}}
         </div>
 <table class="table table-hover">
   <thead>

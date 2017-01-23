@@ -81,6 +81,7 @@ router.get('/leaderboards/:user?/:score?', function(req, res) {
       }
     res.render('leaderboards', {
       hasUser: (usern !== null),
+      nsfw: (points < 0),
       player : usern,
       mainscore : points,
       user : board

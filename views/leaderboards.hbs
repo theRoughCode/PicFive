@@ -235,6 +235,9 @@
           {{#if hasUser}}
             <h1> {{player}}'s score:</h1>
             <div class="count"> {{mainscore}} </div>
+            {{#if nsfw}}
+              <h2>Pls don't send nudes.</h2>
+            {{/if}}
             <p> Did you make it on the leaderboards? Here are the best scores: </p>
           {{else}}
             <h1>Leaderboads</h1>

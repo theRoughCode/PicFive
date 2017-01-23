@@ -61,7 +61,7 @@ router.post('/img', function(req, res) {
         if (err) console.log(err);
         console.log("Player " + player.name + ' saved!');
       });
-      res.redirect('/leaderboards/:user(' + player.name + ')/:score(' + player.val + ')');
+      res.redirect('/leaderboards/' + player.name + '/' + player.val + '');
     })
 })
 

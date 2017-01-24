@@ -6,3 +6,9 @@ The game implements Computer Vision and Machine Learning through Clarifai API.
 The game was developed during UofT Hacks IV in January, 2017. Our initial goal was to develop an application using the ClairifaiAPI, which allows us to process images in highly meaningful ways using image recognition. Ultimately, we created a social game thet encourages exploration and creativity. 
 
 To improve this project, we would improve the user interface and experience. Authentication would be implemented, both locally and using common social media such as Facebook, Twitter, and Google. Users would have the ability to share their scores and invite their friends to participate in the daily challenge.
+
+#### To run this locally:
+  1. Clone this repo
+  2. Make sure you have the latest release of `node` and `npm`
+  3. Run `npm install` and then `nodemon`
+  4. The resolver endpoint will now be accessible at: `http://localhost:5000/`

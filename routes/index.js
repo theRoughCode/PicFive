@@ -6,7 +6,6 @@ var tag         = require('../app/models/tag');
 var models      = require('../Models');
 var Promise     = require('bluebird');
 var cool        = require('cool-ascii-faces');
-var jimp        = require('jimp');
 var bodyParser  = require('body-parser');
 
 var buzzwords = ['COMPUTER', 'CAN', 'GLASSES', 'GIRL', 'BIRD'];
